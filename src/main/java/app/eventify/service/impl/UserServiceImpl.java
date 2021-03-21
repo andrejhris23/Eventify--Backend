@@ -1,6 +1,7 @@
 package app.eventify.service.impl;
 
 import app.eventify.model.*;
+import app.eventify.model.exceptions.InvalidUserIdException;
 import app.eventify.repository.CommentRepository;
 import app.eventify.repository.EventRepository;
 import app.eventify.repository.PostRepository;
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
 
     public User findById(Long id) {
-        return this.userRepository.findById(id).orElseThrow();
+        return this.userRepository.findById(id).orElseThrow(InvalidUserIdException::new);
 
     }
 

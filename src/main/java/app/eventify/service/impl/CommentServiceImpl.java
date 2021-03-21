@@ -1,6 +1,7 @@
 package app.eventify.service.impl;
 
 import app.eventify.model.Comment;
+import app.eventify.model.exceptions.InvalidCommentIdException;
 import app.eventify.repository.CommentRepository;
 import app.eventify.service.CommentService;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class CommentServiceImpl implements CommentService {
     }
     @Override
     public Comment editComment(Comment newComment) {
-        Comment oldComment = commentRepository.findById(newComment.getId()).orElseThrow(RuntimeException::new);
+        Comment oldComment = commentRepository.findById(newComment.getId()).orElseThrow(InvalidCommentIdException::new);
         oldComment.setContent(newComment.getContent());
         return commentRepository.save(oldComment);
     }
