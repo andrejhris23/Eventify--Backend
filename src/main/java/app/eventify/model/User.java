@@ -1,5 +1,6 @@
 package app.eventify.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,8 +23,15 @@ public class User {
     private String name;
 
     @Id
-    @Column(name="googleId")
-    private int googleID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name="email")
+    private String email;
+
+    @Column(name="password")
+    @JsonIgnore
+    private String password;
 
     @Column(name="profileImage")
     private String profileImage;
