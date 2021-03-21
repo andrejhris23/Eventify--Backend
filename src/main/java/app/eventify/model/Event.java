@@ -5,18 +5,30 @@ import lombok.NoArgsConstructor;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 public class Event {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String eventId;
 
     private String name;
+
     private String description;
+
     private String image;
+
     private int price;
+
     private int capacity;
+
     private List<User> users;
+
     private User host;
 
 
