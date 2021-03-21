@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public User create(String name, String profileImage, List<Event> createdEvents, float earnings, List<Comment> comments, Role role, List<Post> createdPosts, List<Post> likedPosts) {
-        List<Event> createdEvents = this.eventRepository.findAllById(eventIds);
+//        List<Event> newEventsList = this.eventRepository.findAllById();
 
         return null;
     }
