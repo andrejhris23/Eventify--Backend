@@ -5,12 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.tomcat.jni.Local;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 import java.util.List;
+
+@Entity
+@Table(name="posts")
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,13 +20,20 @@ import java.util.List;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String postId;
+    private Long id;
 
+    @Column(name="name")
     private String name;
 
+    @Column(name="date")
     private LocalDate date;
 
+    @ManyToMany
     private List<User> likesFromUsers;
 
-    private User userOwner;
+    @ManyToOne
+    private User userCreator;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 }

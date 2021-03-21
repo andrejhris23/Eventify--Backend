@@ -4,9 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+
+@Entity
+@Table(name="users")
 
 @Data
 @AllArgsConstructor
@@ -15,36 +18,35 @@ import java.util.List;
 
 public class User {
 
-
+    @Column(name="name")
     private String name;
+
     @Id
+    @Column(name="googleId")
     private int googleID;
 
+    @Column(name="profileImage")
     private String profileImage;
 
+    @OneToMany(mappedBy = "host")
     private List<Event> createdEvents;
 
+    @ManyToMany
     private List<Event> enrolledEvents;
 
-    private int earnings;
+    @Column(name="earnings")
+    private float earnings;
 
+    @OneToMany(mappedBy = "user")
     private List<Comment> comments;
 
     private Role role;
 
+    @OneToMany(mappedBy = "userCreator")
     private List<Post> createdPosts;
 
+    @ManyToMany
     private List<Post> likedPosts;
-
-
-
-
-
-    public User(String name, int googleID) {
-        this.name = name;
-        this.googleID = googleID;
-    }
-
 
 }
 
