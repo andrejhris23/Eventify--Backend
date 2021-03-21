@@ -1,13 +1,14 @@
 package app.eventify.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 import javax.persistence.Entity;
 import java.util.List;
 
 @Data
-
+@NoArgsConstructor
 public class Event {
 
     private String name;
