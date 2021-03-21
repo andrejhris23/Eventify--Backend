@@ -1,2 +1,6 @@
-package app.eventify.model;public class Role {
+package app.eventify.model;
+
+public enum Role {
+ROLE_ADMIN
+
 }
