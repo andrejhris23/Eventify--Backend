@@ -30,4 +30,20 @@ public class EventServiceImpl implements EventService {
     public void deleteById(Long id) {
         eventRepository.deleteById(id);
     }
+
+    @Override
+    public Event createEvent(Event event) {
+        return eventRepository.save(event);
+    }
+
+    @Override
+    public Event editEvent(Event editedEvent) {
+        Event event = eventRepository.findById(editedEvent.getId())
+                .orElseThrow(() -> new InvalidEventIdException(editedEvent.getId()));
+
+        event.setDescription(editedEvent.getDescription());
+        // za site
+
+        return eventRepository.save(event);
+    }
 }

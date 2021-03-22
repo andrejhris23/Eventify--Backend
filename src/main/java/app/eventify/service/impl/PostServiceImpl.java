@@ -29,5 +29,22 @@ public class PostServiceImpl implements PostService {
         postRepository.deleteById(id);
     }
 
+    @Override
+    public Post createPost(Post post) {
+        return postRepository.save(post);
+    }
+
+    @Override
+    public Post editPost(Post editedPost) {
+        Post post = postRepository.findById(editedPost.getId())
+                .orElseThrow(() -> new InvalidPostIdException(editedPost.getId()));
+
+        post.setName(editedPost.getName());
+        post.setDate(editedPost.getDate());
+        // site
+
+        return postRepository.save(post);
+    }
+
 
 }
