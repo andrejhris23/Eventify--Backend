@@ -2,5 +2,7 @@ package app.eventify.model.exceptions;
 
 public class InvalidPostIdException extends RuntimeException{
 
-    // Za Chafka
+    public InvalidPostIdException(Long id){
+        super("Invalid post id - " + id);
+    }
 }

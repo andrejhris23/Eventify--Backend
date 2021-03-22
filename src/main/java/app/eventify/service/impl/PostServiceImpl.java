@@ -22,7 +22,7 @@ public class PostServiceImpl implements PostService {
     }
     @Override
     public Post findById(Long id) {
-        return this.postRepository.findById(id).orElseThrow(InvalidPostIdException::new);
+        return this.postRepository.findById(id).orElseThrow(() -> new InvalidPostIdException(id));
     }
     @Override
     public void deleteById(Long id) {

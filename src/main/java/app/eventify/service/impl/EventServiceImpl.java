@@ -21,7 +21,7 @@ public class EventServiceImpl implements EventService {
     }
     @Override
     public Event findById(Long id) {
-        return this.eventRepository.findById(id).orElseThrow(InvalidEventIdException::new);
+        return this.eventRepository.findById(id).orElseThrow(()-> new InvalidEventIdException(id));
     }
 
     /* falat ushte servisi */

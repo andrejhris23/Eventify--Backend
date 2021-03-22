@@ -2,5 +2,7 @@ package app.eventify.model.exceptions;
 
 public class InvalidEventIdException extends RuntimeException{
 
-    // Za Chafka
+    public InvalidEventIdException(Long id){
+        super("Invalid event id - " + id);
+    }
 }

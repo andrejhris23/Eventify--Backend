@@ -25,7 +25,8 @@ public class CommentServiceImpl implements CommentService {
     }
     @Override
     public Comment editComment(Comment newComment) {
-        Comment oldComment = commentRepository.findById(newComment.getId()).orElseThrow(InvalidCommentIdException::new);
+        Comment oldComment = commentRepository.findById(newComment.getId())
+                .orElseThrow(() -> new InvalidCommentIdException(newComment.getId()));
         oldComment.setContent(newComment.getContent());
         return commentRepository.save(oldComment);
     }
