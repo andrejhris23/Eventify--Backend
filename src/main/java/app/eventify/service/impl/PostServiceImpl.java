@@ -44,6 +44,7 @@ public class PostServiceImpl implements PostService {
 
         post.setName(editedPost.getName());
         post.setDate(editedPost.getDate());
+        //post.setComments(editedPost.getComments());
 
         return postRepository.save(post);
     }

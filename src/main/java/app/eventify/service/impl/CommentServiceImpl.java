@@ -28,7 +28,10 @@ public class CommentServiceImpl implements CommentService {
     public Comment editComment(Comment newComment) {
         Comment oldComment = commentRepository.findById(newComment.getId())
                 .orElseThrow(() -> new InvalidCommentIdException(newComment.getId()));
+
         oldComment.setContent(newComment.getContent());
+        oldComment.setDate(newComment.getDate());
+
         return commentRepository.save(oldComment);
     }
 

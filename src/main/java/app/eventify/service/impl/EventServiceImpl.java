@@ -45,6 +45,8 @@ public class EventServiceImpl implements EventService {
         event.setImage(editedEvent.getImage());
         event.setPrice(editedEvent.getPrice());
         event.setCapacity(editedEvent.getCapacity());
+//        event.setGuests(editedEvent.getGuests());
+//        event.setHost(editedEvent.getHost());
 
         return eventRepository.save(event);
     }

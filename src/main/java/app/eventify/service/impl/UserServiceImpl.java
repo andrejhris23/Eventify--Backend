@@ -57,7 +57,6 @@ public class UserServiceImpl implements UserService {
         oldUser.setCreatedEvents(editedUser.getCreatedEvents());
         oldUser.setEnrolledEvents(editedUser.getEnrolledEvents());
         oldUser.setEarnings(editedUser.getEarnings());
-        oldUser.setComments(editedUser.getComments());
         oldUser.setRole(editedUser.getRole());
         oldUser.setCreatedPosts(editedUser.getCreatedPosts());
         oldUser.setLikedPosts(editedUser.getLikedPosts());
