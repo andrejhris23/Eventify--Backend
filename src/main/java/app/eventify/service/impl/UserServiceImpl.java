@@ -29,15 +29,44 @@ public class UserServiceImpl implements UserService {
         this.commentRepository = commentRepository;
     }
 
-
-    public User findById(Long id) {
-        return this.userRepository.findById(id).orElseThrow(()-> new InvalidUserIdException(id));
-
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
-    public User create(String name, String profileImage, List<Event> createdEvents, float earnings, List<Comment> comments, Role role, List<Post> createdPosts, List<Post> likedPosts) {
-//        List<Event> newEventsList = this.eventRepository.findAllById();
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(()-> new InvalidUserIdException(id));
+    }
 
-        return null;
+    @Override
+    public User createUser(User newUser) {
+        return userRepository.save(newUser);
+    }
+
+    @Override
+    public User editUser(User editedUser){
+        User oldUser = userRepository.findById(editedUser.getId())
+                .orElseThrow(()-> new InvalidUserIdException(editedUser.getId()));
+
+        // not sure if everything should be here
+        oldUser.setName(editedUser.getName());
+        oldUser.setEmail(editedUser.getEmail());
+        oldUser.setPassword(editedUser.getPassword());
+        oldUser.setProfileImage(editedUser.getProfileImage());
+        oldUser.setCreatedEvents(editedUser.getCreatedEvents());
+        oldUser.setEnrolledEvents(editedUser.getEnrolledEvents());
+        oldUser.setEarnings(editedUser.getEarnings());
+        oldUser.setComments(editedUser.getComments());
+        oldUser.setRole(editedUser.getRole());
+        oldUser.setCreatedPosts(editedUser.getCreatedPosts());
+        oldUser.setLikedPosts(editedUser.getLikedPosts());
+
+        return userRepository.save(oldUser);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 }

@@ -21,8 +21,9 @@ public class CommentServiceImpl implements CommentService {
     }
     @Override
     public Comment findById(Long id) {
-        return commentRepository.findById(id).orElseThrow(RuntimeException::new);
+        return commentRepository.findById(id).orElseThrow(() -> new InvalidCommentIdException(id));
     }
+
     @Override
     public Comment editComment(Comment newComment) {
         Comment oldComment = commentRepository.findById(newComment.getId())
@@ -30,10 +31,12 @@ public class CommentServiceImpl implements CommentService {
         oldComment.setContent(newComment.getContent());
         return commentRepository.save(oldComment);
     }
+
     @Override
-    public Comment saveComment(Comment newComment) {
+    public Comment createComment(Comment newComment) {
         return commentRepository.save(newComment);
     }
+
     @Override
     public void deleteById(Long id) {
         commentRepository.deleteById(id);

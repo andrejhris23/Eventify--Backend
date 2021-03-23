@@ -19,12 +19,11 @@ public class EventServiceImpl implements EventService {
     public List<Event> findAll() {
         return eventRepository.findAll();
     }
+
     @Override
     public Event findById(Long id) {
-        return this.eventRepository.findById(id).orElseThrow(()-> new InvalidEventIdException(id));
+        return this.eventRepository.findById(id).orElseThrow(() -> new InvalidEventIdException(id));
     }
-
-    /* falat ushte servisi */
 
     @Override
     public void deleteById(Long id) {
@@ -41,8 +40,11 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository.findById(editedEvent.getId())
                 .orElseThrow(() -> new InvalidEventIdException(editedEvent.getId()));
 
+        event.setName(editedEvent.getName());
         event.setDescription(editedEvent.getDescription());
-        // za site
+        event.setImage(editedEvent.getImage());
+        event.setPrice(editedEvent.getPrice());
+        event.setCapacity(editedEvent.getCapacity());
 
         return eventRepository.save(event);
     }

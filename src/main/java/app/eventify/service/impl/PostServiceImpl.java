@@ -16,14 +16,17 @@ public class PostServiceImpl implements PostService {
     public PostServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
+
     @Override
     public List<Post> listAll() {
         return this.postRepository.findAll();
     }
+
     @Override
     public Post findById(Long id) {
         return this.postRepository.findById(id).orElseThrow(() -> new InvalidPostIdException(id));
     }
+
     @Override
     public void deleteById(Long id) {
         postRepository.deleteById(id);
@@ -41,7 +44,6 @@ public class PostServiceImpl implements PostService {
 
         post.setName(editedPost.getName());
         post.setDate(editedPost.getDate());
-        // site
 
         return postRepository.save(post);
     }
