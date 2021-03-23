@@ -43,6 +43,7 @@ public class PostServiceImpl implements PostService {
                 .orElseThrow(() -> new InvalidPostIdException(editedPost.getId()));
 
         post.setName(editedPost.getName());
+        post.setContent(editedPost.getContent());
         post.setDate(editedPost.getDate());
         //post.setComments(editedPost.getComments());
 
