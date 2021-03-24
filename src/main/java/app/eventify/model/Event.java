@@ -41,7 +41,7 @@ public class Event {
     private User host;
 
 
-    public Event(String name, String description, String image, int price, int capacity, List<User> guests, User host) {
+    public Event(String name, String description, String image, int price, int capacity, User host) {
         this.name = name;
         this.description = description;
         this.image = image;

@@ -1,6 +1,7 @@
 package app.eventify.service.impl;
 
 import app.eventify.model.Post;
+import app.eventify.model.User;
 import app.eventify.model.exceptions.InvalidPostIdException;
 import app.eventify.repository.PostRepository;
 import app.eventify.service.PostService;
@@ -33,8 +34,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post createPost(Post post) {
-        return postRepository.save(post);
+    public Post createPost(String name, String content) {
+        User postCreator = new User(); // get the logged user from spring security
+        Post newPost = new Post(name, content, postCreator);
+
+        return postRepository.save(newPost);
     }
 
     @Override
@@ -48,6 +52,22 @@ public class PostServiceImpl implements PostService {
         //post.setComments(editedPost.getComments());
 
         return postRepository.save(post);
+    }
+
+    @Override
+    public void likePost(Long postId) {
+        User currentUser = new User(); // get this from spring security
+        Post likedPost = postRepository.findById(postId).orElseThrow(() -> new InvalidPostIdException(postId));
+
+        likedPost.getLikesFromUsers().add(currentUser);
+        currentUser.getLikedPosts().add(likedPost);
+    }
+
+    @Override
+    public int calculateLikes(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new InvalidPostIdException(postId));
+
+        return post.getLikesFromUsers().size();
     }
 
 

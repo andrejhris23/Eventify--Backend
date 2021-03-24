@@ -2,12 +2,12 @@ package app.eventify.controller;
 
 import app.eventify.model.Comment;
 import app.eventify.service.CommentService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/comments")
 public class CommentController {
 
     private final CommentService commentService;
@@ -15,8 +15,14 @@ public class CommentController {
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }
+
     @GetMapping
     public List<Comment> findAll(){
         return this.commentService.findAll();
+    }
+
+    @PostMapping("/{postId}/add")
+    public Comment addNewComment(@PathVariable Long postId, @RequestParam String content) {
+        return commentService.createComment(content, postId);
     }
 }

@@ -1,6 +1,7 @@
 package app.eventify.service.impl;
 
 import app.eventify.model.Event;
+import app.eventify.model.User;
 import app.eventify.model.exceptions.InvalidEventIdException;
 import app.eventify.repository.EventRepository;
 import app.eventify.service.EventService;
@@ -31,8 +32,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event createEvent(Event event) {
-        return eventRepository.save(event);
+    public Event createEvent(String name, String description, String image, int price, int capacity) {
+        User host = new User(); // get the logged user from spring security
+        Event newEvent = new Event(name, description, image, price, capacity, host);
+
+        return eventRepository.save(newEvent);
     }
 
     @Override

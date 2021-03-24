@@ -8,6 +8,7 @@ import org.apache.tomcat.jni.Local;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -39,4 +40,13 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;
+
+    public Post(String name, String content, User userCreator) {
+        this.name = name;
+        this.content = content;
+        this.userCreator = userCreator;
+        this.date = LocalDate.now();
+        this.likesFromUsers = new ArrayList<>();
+        this.comments = new ArrayList<>();
+    }
 }

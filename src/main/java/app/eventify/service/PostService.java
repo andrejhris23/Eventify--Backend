@@ -13,7 +13,11 @@ public interface PostService {
 
     void deleteById(Long id);
 
-    Post createPost(Post post);
+    Post createPost(String name, String content);
 
     Post editPost(Post editedPost);
+
+    void likePost(Long postId);
+
+    int calculateLikes(Long postId);
 }

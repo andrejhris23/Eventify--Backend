@@ -16,7 +16,7 @@ public interface CommentService {
     Comment editComment(Comment newComment);
 
     /* Ja koristime za kreiranje nov komenter i.e. CREATE */
-    Comment createComment(Comment newComment);
+    Comment createComment(String content, Long postId);
 
     /* Brishenje na komentar spored ID */
     void deleteById(Long id);
