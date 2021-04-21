@@ -5,24 +5,30 @@ import app.eventify.model.Post;
 import app.eventify.model.User;
 import app.eventify.model.exceptions.InvalidCommentIdException;
 import app.eventify.model.exceptions.InvalidPostIdException;
+import app.eventify.model.exceptions.InvalidUserIdException;
 import app.eventify.repository.CommentRepository;
 import app.eventify.repository.PostRepository;
+import app.eventify.repository.UserRepository;
 import app.eventify.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+
 @Service
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository, UserRepository userRepository) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -46,10 +52,16 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.save(oldComment);
     }
 
-    @Override
+   /* @Override
     public Comment createComment(String content, Long postId) {
+        return null;
+    }*/
+
+    @Override
+    public Comment createComment(String content, Long postId, Long userId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new InvalidPostIdException(postId));
-        User currentUser = new User(); // get this from spring security
+        User currentUser = this.userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
+       /* User currentUser = new User(); */    // get this from spring security
         Comment newComment = new Comment(content, currentUser, post);
 
         return commentRepository.save(newComment);

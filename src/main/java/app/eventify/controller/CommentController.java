@@ -22,7 +22,8 @@ public class CommentController {
     }
 
     @PostMapping("/{postId}/add")
-    public Comment addNewComment(@PathVariable Long postId, @RequestParam String content) {
-        return commentService.createComment(content, postId);
+    public Comment addNewComment(@PathVariable Long postId, @RequestParam String content, @RequestParam Long userId) {
+
+        return commentService.createComment(content, postId, userId);
     }
 }

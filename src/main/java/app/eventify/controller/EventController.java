@@ -29,8 +29,9 @@ public class EventController {
             @RequestParam String description,
             @RequestParam String image,
             @RequestParam int price,
-            @RequestParam int capacity) {
+            @RequestParam int capacity,
+            @RequestParam Long userId) {
 
-        return eventService.createEvent(name, description, image, price, capacity);
+        return eventService.createEvent(name, description, image, price, capacity, userId);
     }
 }

@@ -13,7 +13,7 @@ public interface PostService {
 
     void deleteById(Long id);
 
-    Post createPost(String name, String content);
+    Post createPost(String name, String content, Long userId);
 
     Post editPost(Post editedPost);
 

@@ -17,8 +17,8 @@ public class PostController {
     }
 
     @PostMapping("/new")
-    public Post createNewPost(@RequestParam String name, @RequestParam String content) {
-        return postService.createPost(name, content);
+    public Post createNewPost(@RequestParam String name, @RequestParam String content, @RequestParam Long userId) {
+        return postService.createPost(name, content, userId);
     }
 
     @PostMapping("/like")
