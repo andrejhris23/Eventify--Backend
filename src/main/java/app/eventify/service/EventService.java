@@ -13,7 +13,7 @@ public interface EventService {
 
     void deleteById(Long id);
 
-    Event createEvent(String name, String description, String image, int price, int capacity);
+    Event createEvent(String name, String description, String image, int price, int capacity, Long userId);
 
     Event editEvent(Event editedEvent);
 }

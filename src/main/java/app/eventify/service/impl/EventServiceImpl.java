@@ -3,7 +3,9 @@ package app.eventify.service.impl;
 import app.eventify.model.Event;
 import app.eventify.model.User;
 import app.eventify.model.exceptions.InvalidEventIdException;
+import app.eventify.model.exceptions.InvalidUserIdException;
 import app.eventify.repository.EventRepository;
+import app.eventify.repository.UserRepository;
 import app.eventify.service.EventService;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +14,11 @@ import java.util.List;
 public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
+    private final UserRepository userRepository;
 
-    public EventServiceImpl(EventRepository eventRepository) {
+    public EventServiceImpl(EventRepository eventRepository, UserRepository userRepository) {
         this.eventRepository = eventRepository;
+        this.userRepository = userRepository;
     }
     @Override
     public List<Event> findAll() {
@@ -32,12 +36,31 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event createEvent(String name, String description, String image, int price, int capacity) {
-        User host = new User(); // get the logged user from spring security
+    public Event createEvent(String name, String description, String image, int price, int capacity, Long userId) {
+        /* User host = new User(); */ // get the logged user from spring security
+        User host = this.userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
         Event newEvent = new Event(name, description, image, price, capacity, host);
 
         return eventRepository.save(newEvent);
     }
+
+    public String joinEvent (Long eventId, Long userId){
+        User guest = this.userRepository.findById(userId).orElseThrow (() -> new InvalidUserIdException(userId));
+        Event event = this.eventRepository.findById(eventId).orElseThrow (() -> new InvalidEventIdException(eventId));
+        String noCapacity = "Capacity Full";
+        String joinedMessage = "You've joined";
+
+        if (event.getCapacity() > 0){
+           guest.getEnrolledEvents().add(event);
+           userRepository.save(guest);
+           //  Many to many
+            return joinedMessage;
+        }
+
+        else return noCapacity;
+    }
+
+
 
     @Override
     public Event editEvent(Event editedEvent) {

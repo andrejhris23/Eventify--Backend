@@ -3,7 +3,9 @@ package app.eventify.service.impl;
 import app.eventify.model.Post;
 import app.eventify.model.User;
 import app.eventify.model.exceptions.InvalidPostIdException;
+import app.eventify.model.exceptions.InvalidUserIdException;
 import app.eventify.repository.PostRepository;
+import app.eventify.repository.UserRepository;
 import app.eventify.service.PostService;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,11 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository, UserRepository userRepository) {
         this.postRepository = postRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -34,8 +38,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post createPost(String name, String content) {
-        User postCreator = new User(); // get the logged user from spring security
+    public Post createPost(String name, String content, Long userId) {
+        User postCreator = this.userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
+        /* User postCreator = new User(); */ // get the logged user from spring security
         Post newPost = new Post(name, content, postCreator);
 
         return postRepository.save(newPost);
