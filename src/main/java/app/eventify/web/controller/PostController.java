@@ -1,4 +1,4 @@
-package app.eventify.controller;
+package app.eventify.web.controller;
 
 import app.eventify.model.Post;
 import app.eventify.service.PostService;

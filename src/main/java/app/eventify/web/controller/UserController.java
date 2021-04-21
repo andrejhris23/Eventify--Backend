@@ -1,4 +1,4 @@
-package app.eventify.controller;
+package app.eventify.web.controller;
 
 
 import org.springframework.web.bind.annotation.RestController;
