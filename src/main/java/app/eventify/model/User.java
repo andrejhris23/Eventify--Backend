@@ -19,6 +19,8 @@ import java.util.List;
 
 public class User {
 
+
+
     @Column(name="name")
     private String name;
 
@@ -56,5 +58,10 @@ public class User {
     @ManyToMany
     private List<Post> likedPosts;
 
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 }
 
