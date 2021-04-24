@@ -2,8 +2,11 @@ package app.eventify.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -19,21 +22,31 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="oauthId")
+    @NotNull(message = "oauthId is required")
+    @Column(name="oauthId", unique = true)
     private String oauthId;
 
-    @Column(name="email")
+    @NotNull(message = "email is required")
+    @Column(name="email", unique = true)
     private String email;
 
+    @NotNull(message = "full name is required")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "full name must be a string")
     @Column(name="displayName")
     private String displayName;
 
+    @NotNull(message = "first name is required")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "first name must be a string")
     @Column(name="firstName")
     private String firstName;
 
+    @NotNull(message = "last name is required")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "last name must be a string")
     @Column(name="lastName")
     private String lastName;
 
+    @NotNull(message = "image is required")
+    @URL(message = "image must be an URL")
     @Column(name="image")
     private String image;
 

@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +22,12 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "event name is required")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "event name must be a string")
     @Column(name="name")
     private String name;
 
+    @NotNull(message = "description is required")
     @Column(name="description")
     private String description;
 
@@ -31,6 +37,8 @@ public class Event {
     @Column(name="price")
     private float price;
 
+    @Positive(message = "the capacity must be a positive number")
+    @NotNull(message = "event capacity is required")
     @Column(name="capacity")
     private int capacity;
 

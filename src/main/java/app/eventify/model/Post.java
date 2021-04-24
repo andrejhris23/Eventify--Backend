@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +23,12 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "post name is required")
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "post name must be a string")
     @Column(name="name")
     private String name;
 
+    @NotNull(message = "post content is required")
     @Column(name="content")
     private String content;
 

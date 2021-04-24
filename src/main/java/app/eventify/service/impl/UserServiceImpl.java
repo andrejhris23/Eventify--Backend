@@ -60,14 +60,8 @@ public class UserServiceImpl implements UserService {
         oldUser.setDisplayName(editedUser.getDisplayName());
         oldUser.setFirstName(editedUser.getFirstName());
         oldUser.setLastName(editedUser.getLastName());
-        oldUser.setEmail(editedUser.getEmail());
         oldUser.setImage(editedUser.getImage());
-        oldUser.setCreatedEvents(editedUser.getCreatedEvents());
-        oldUser.setEnrolledEvents(editedUser.getEnrolledEvents());
         oldUser.setEarnings(editedUser.getEarnings());
-        oldUser.setRole(editedUser.getRole());
-        oldUser.setCreatedPosts(editedUser.getCreatedPosts());
-        oldUser.setLikedPosts(editedUser.getLikedPosts());
 
         return userRepository.save(oldUser);
     }
