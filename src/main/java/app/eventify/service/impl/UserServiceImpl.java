@@ -41,6 +41,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User newUser) {
+        // ovaa funkcija treba da se dovrsi
+        // treba da se proveri prvo dali postoi userot
+        // ako postoi da se vrati negovo id
+        // ako ne postoi da se kreira userot
+        // i potoa da se vrati negovoto id
+        // vaka ke fetchame info na frontend so SWR
+        // isEmpty() funckijata bi ni pomognala tuka
         return userRepository.save(newUser);
     }
 
