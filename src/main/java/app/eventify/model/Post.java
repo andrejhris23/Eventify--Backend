@@ -3,11 +3,9 @@ package app.eventify.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +30,13 @@ public class Post {
     @Column(name="date")
     private LocalDate date;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<User> likesFromUsers;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User userCreator;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
     private List<Comment> comments;
 
     public Post(String name, String content, User userCreator) {

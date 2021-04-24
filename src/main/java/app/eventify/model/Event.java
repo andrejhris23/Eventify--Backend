@@ -34,10 +34,10 @@ public class Event {
     @Column(name="capacity")
     private int capacity;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<User> guests;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User host;
 
 

@@ -50,10 +50,11 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(()-> new InvalidUserIdException(editedUser.getId()));
 
         // not sure if everything should be here
-        oldUser.setName(editedUser.getName());
+        oldUser.setDisplayName(editedUser.getDisplayName());
+        oldUser.setFirstName(editedUser.getFirstName());
+        oldUser.setLastName(editedUser.getLastName());
         oldUser.setEmail(editedUser.getEmail());
-        oldUser.setPassword(editedUser.getPassword());
-        oldUser.setProfileImage(editedUser.getProfileImage());
+        oldUser.setImage(editedUser.getImage());
         oldUser.setCreatedEvents(editedUser.getCreatedEvents());
         oldUser.setEnrolledEvents(editedUser.getEnrolledEvents());
         oldUser.setEarnings(editedUser.getEarnings());

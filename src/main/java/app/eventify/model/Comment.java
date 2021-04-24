@@ -25,10 +25,10 @@ public class Comment {
     @Column(name="date")
     private LocalDate date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Post post;
 
     public Comment(String content, User user, Post post) {
