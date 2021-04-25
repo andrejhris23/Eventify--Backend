@@ -32,12 +32,12 @@ public class EventController {
     @PostMapping("/createEvent")
     public Event createNewEvent(
             @Valid
-            @RequestBody String name,
-            @RequestBody String description,
-            @RequestBody String image,
-            @RequestBody int price,
-            @RequestBody int capacity,
-            @RequestBody Long userId) {
+            @RequestParam String name,
+            @RequestParam String description,
+            @RequestParam String image,
+            @RequestParam int price,
+            @RequestParam int capacity,
+            @RequestParam Long userId) {
 
         return eventService.createEvent(name, description, image, price, capacity, userId);
     }

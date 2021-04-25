@@ -40,6 +40,7 @@ public class EventServiceImpl implements EventService {
         /* User host = new User(); */ // get the logged user from spring security
         User host = this.userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
         Event newEvent = new Event(name, description, image, price, capacity, host);
+        // host.setCreatedEvents().add(newEvent);
 
         return eventRepository.save(newEvent);
     }

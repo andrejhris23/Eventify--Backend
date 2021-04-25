@@ -1,5 +1,6 @@
 package app.eventify.web.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,6 +18,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
@@ -30,9 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     // put .mvcMatchers function to permit requests that don't need auth
     // http security class adds a filter that each request needs to pass through
     @Override
+    @Autowired
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http.authorizeRequests()
-                .mvcMatchers(HttpMethod.POST, "/users/**").permitAll()
+                .mvcMatchers(HttpMethod.POST, "/event/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
