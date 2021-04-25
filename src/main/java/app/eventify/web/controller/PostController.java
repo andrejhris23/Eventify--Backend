@@ -3,13 +3,14 @@ package app.eventify.web.controller;
 import app.eventify.model.Post;
 import app.eventify.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/post")
 public class PostController {
 
     private final PostService postService;
@@ -30,13 +31,21 @@ public class PostController {
     }
 
     @PostMapping("/createPost")
+    @PreAuthorize("hasAuthority('create:post')")
     public Post createNewPost(@Valid @RequestBody String name,  String content, Long userId) {
         return postService.createPost(name, content, userId);
     }
 
     @PatchMapping("/editPost")
+    @PreAuthorize("hasAuthority('edit:post')")
     public Post editPost(@Valid @RequestBody Post editedPost) {
         return postService.editPost(editedPost);
+    }
+
+    @DeleteMapping("/deleteById/{id}")
+    @PreAuthorize("hasAuthority('delete:post')")
+    public void deletePost(@PathVariable ("id") Long id) {
+        postService.deleteById(id);
     }
 
     @PostMapping("/likePost")

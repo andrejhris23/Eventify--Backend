@@ -9,7 +9,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping("/event")
 public class EventController {
 
     private final EventService eventService;

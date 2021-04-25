@@ -9,6 +9,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -29,9 +36,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .anyRequest()
                 .authenticated()
                 .and()
+                .cors()
+                .configurationSource(corsConfigurationSource())
+                .and()
                 .oauth2ResourceServer()
                 .jwt()
-                .decoder(jwtDecoder());
+                .decoder(jwtDecoder())
+                .jwtAuthenticationConverter(jwtAuthenticationConverter());
+    }
+
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedMethods(List.of(
+                HttpMethod.GET.name(),
+                HttpMethod.POST.name(),
+                HttpMethod.PATCH.name(),
+                HttpMethod.DELETE.name()
+        ));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration.applyPermitDefaultValues());
+        return source;
     }
 
     JwtDecoder jwtDecoder() {
@@ -42,5 +67,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder) JwtDecoders.fromIssuerLocation(issuer);
         jwtDecoder.setJwtValidator(validator);
         return jwtDecoder;
+    }
+
+    JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
+        converter.setAuthoritiesClaimName("permissions");
+        converter.setAuthorityPrefix("");
+
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(converter);
+        return jwtAuthenticationConverter;
     }
 }
