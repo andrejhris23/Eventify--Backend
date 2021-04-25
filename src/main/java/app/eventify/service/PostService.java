@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PostService {
 
-    List<Post> listAll();
+    List<Post> findAll();
 
     Post findById(Long id);
 
@@ -17,7 +17,7 @@ public interface PostService {
 
     Post editPost(Post editedPost);
 
-    void likePost(Long postId);
+    Post likePost(Long postId, Long userId);
 
     int calculateLikes(Long postId);
 }

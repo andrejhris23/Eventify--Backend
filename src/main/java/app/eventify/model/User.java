@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -27,6 +28,7 @@ public class User {
     private String oauthId;
 
     @NotNull(message = "email is required")
+    @Email(message = "must be a correct format of an email")
     @Column(name="email", unique = true)
     private String email;
 

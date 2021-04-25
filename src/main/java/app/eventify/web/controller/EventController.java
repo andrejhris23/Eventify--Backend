@@ -5,6 +5,7 @@ import app.eventify.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,20 +19,41 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/getAllEvents")
     public List<Event> getAllEvents() {
         return eventService.findAll();
     }
 
-    @PostMapping("/new")
+    @GetMapping("/getEventById/{id}")
+    public Event getEventById(@PathVariable("id") Long id) {
+        return eventService.findById(id);
+    }
+
+    @PostMapping("/createEvent")
     public Event createNewEvent(
-            @RequestParam String name,
-            @RequestParam String description,
-            @RequestParam String image,
-            @RequestParam int price,
-            @RequestParam int capacity,
-            @RequestParam Long userId) {
+            @Valid
+            @RequestBody String name,
+            @RequestBody String description,
+            @RequestBody String image,
+            @RequestBody int price,
+            @RequestBody int capacity,
+            @RequestBody Long userId) {
 
         return eventService.createEvent(name, description, image, price, capacity, userId);
+    }
+
+    @PostMapping("/joinEvent")
+    public String joinEvent(@Valid @RequestBody Long eventId, @RequestBody Long userId ) {
+        return eventService.joinEvent(eventId, userId);
+    }
+
+    @PatchMapping("/editEvent")
+    public Event editEvent(@Valid @RequestBody Event editedEvent) {
+        return eventService.editEvent(editedEvent);
+    }
+
+    @DeleteMapping("/deleteById/{id}")
+    public void deleteById(@PathVariable("id") Long eventId) {
+        eventService.deleteById(eventId);
     }
 }

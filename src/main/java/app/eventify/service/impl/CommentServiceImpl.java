@@ -52,15 +52,10 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.save(oldComment);
     }
 
-   /* @Override
-    public Comment createComment(String content, Long postId) {
-        return null;
-    }*/
-
     @Override
     public Comment createComment(String content, Long postId, Long userId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new InvalidPostIdException(postId));
-        User currentUser = this.userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
+        User currentUser = userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
        /* User currentUser = new User(); */    // get this from spring security
         Comment newComment = new Comment(content, currentUser, post);
 

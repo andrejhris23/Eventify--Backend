@@ -5,6 +5,9 @@ import app.eventify.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.List;
+
 @RestController
 @RequestMapping("/posts")
 public class PostController {
@@ -16,14 +19,29 @@ public class PostController {
         this.postService = postService;
     }
 
-    @PostMapping("/new")
-    public Post createNewPost(@RequestParam String name, @RequestParam String content, @RequestParam Long userId) {
+    @GetMapping("/getAllPosts")
+    public List<Post> getAllPosts() {
+        return postService.findAll();
+    }
+
+    @GetMapping("/findById/{id}")
+    public Post findById(@PathVariable("id") Long id) {
+        return postService.findById(id);
+    }
+
+    @PostMapping("/createPost")
+    public Post createNewPost(@Valid @RequestBody String name, @RequestBody String content, @RequestBody Long userId) {
         return postService.createPost(name, content, userId);
     }
 
-    @PostMapping("/like")
-    public void likePost(@RequestParam Long postId) {
-        postService.likePost(postId);
+    @PatchMapping("/editPost")
+    public Post editPost(@Valid @RequestBody Post editedPost) {
+        return postService.editPost(editedPost);
+    }
+
+    @PostMapping("/likePost")
+    public Post likePost(@RequestBody Long postId, @RequestBody Long userId) {
+        return postService.likePost(postId, userId);
     }
 
     @GetMapping("{postId}/likes")

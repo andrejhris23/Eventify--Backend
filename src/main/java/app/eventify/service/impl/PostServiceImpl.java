@@ -23,7 +23,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> listAll() {
+    public List<Post> findAll() {
         return this.postRepository.findAll();
     }
 
@@ -60,12 +60,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void likePost(Long postId) {
-        User currentUser = new User(); // get this from spring security
+    public Post likePost(Long postId, Long userId) {
+        User currentUser = userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
         Post likedPost = postRepository.findById(postId).orElseThrow(() -> new InvalidPostIdException(postId));
 
         likedPost.getLikesFromUsers().add(currentUser);
-        currentUser.getLikedPosts().add(likedPost);
+        return postRepository.save(likedPost);
     }
 
     @Override
