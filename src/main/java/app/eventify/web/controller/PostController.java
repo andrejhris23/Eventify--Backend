@@ -30,7 +30,7 @@ public class PostController {
     }
 
     @PostMapping("/createPost")
-    public Post createNewPost(@Valid @RequestBody String name, @RequestBody String content, @RequestBody Long userId) {
+    public Post createNewPost(@Valid @RequestBody String name,  String content, Long userId) {
         return postService.createPost(name, content, userId);
     }
 

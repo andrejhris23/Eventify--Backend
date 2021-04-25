@@ -44,19 +44,3 @@ public class UserController {
         userService.deleteById(id);
     }
     }
-
-
-
-   /*
-
-   List<User> findAll();
-
-    User findById(Long id);
-
-    User createUser(User newUser);
-
-    User editUser(User editedUser);
-
-    void deleteById(Long id);
-
-    */
