@@ -3,6 +3,7 @@ package app.eventify.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -34,10 +35,10 @@ public class Post {
 
     @Column(name="date")
     private LocalDate date;
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     private List<User> likesFromUsers;
-
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     private User userCreator;
 

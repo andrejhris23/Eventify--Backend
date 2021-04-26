@@ -2,6 +2,7 @@ package app.eventify.service.impl;
 
 import app.eventify.model.Post;
 import app.eventify.model.User;
+import app.eventify.model.exceptions.InvalidLikedPostException;
 import app.eventify.model.exceptions.InvalidPostIdException;
 import app.eventify.model.exceptions.InvalidUserIdException;
 import app.eventify.repository.PostRepository;
@@ -47,13 +48,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post editPost(Post editedPost) {
-        Post post = postRepository.findById(editedPost.getId())
-                .orElseThrow(() -> new InvalidPostIdException(editedPost.getId()));
+    public Post editPost(Long postId, String name, String content) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new InvalidPostIdException(postId));
 
-        post.setName(editedPost.getName());
-        post.setContent(editedPost.getContent());
-        post.setDate(editedPost.getDate());
+        post.setName(name);
+        post.setContent(content);
+        //post.setDate(editedPost.getDate());
         //post.setComments(editedPost.getComments());
 
         return postRepository.save(post);
@@ -63,6 +63,22 @@ public class PostServiceImpl implements PostService {
     public Post likePost(Long postId, Long userId) {
         User currentUser = userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
         Post likedPost = postRepository.findById(postId).orElseThrow(() -> new InvalidPostIdException(postId));
+
+
+    // !!!! podole ima frka so if uslovot. Treba da gleda dali e lajknat postot, pa posle da go lajkne !!!
+
+        /* if ( likedPost.getLikesFromUsers().contains(currentUser) ){
+            throw new InvalidLikedPostException(postId);
+        }
+
+        else {
+               likedPost.getLikesFromUsers().add(currentUser);
+               System.out.println(likedPost.getLikesFromUsers());
+        return postRepository.save(likedPost);
+
+
+
+        } */
 
         likedPost.getLikesFromUsers().add(currentUser);
         return postRepository.save(likedPost);

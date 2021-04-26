@@ -31,25 +31,25 @@ public class PostController {
     }
 
     @PostMapping("/createPost")
-    @PreAuthorize("hasAuthority('create:post')")
-    public Post createNewPost(@Valid @RequestBody String name,  String content, Long userId) {
+    // @PreAuthorize("hasAuthority('create:post')")
+    public Post createNewPost(@Valid @RequestParam String name,  @RequestParam String content, @RequestParam Long userId) {
         return postService.createPost(name, content, userId);
     }
 
     @PatchMapping("/editPost")
-    @PreAuthorize("hasAuthority('edit:post')")
-    public Post editPost(@Valid @RequestBody Post editedPost) {
-        return postService.editPost(editedPost);
+    // @PreAuthorize("hasAuthority('edit:post')")
+    public Post editPost(@Valid @RequestParam Long postId, @RequestParam String name, @RequestParam String content) {
+        return postService.editPost(postId, name, content);
     }
 
     @DeleteMapping("/deleteById/{id}")
-    @PreAuthorize("hasAuthority('delete:post')")
+    // @PreAuthorize("hasAuthority('delete:post')")
     public void deletePost(@PathVariable ("id") Long id) {
         postService.deleteById(id);
     }
 
     @PostMapping("/likePost")
-    public Post likePost(@RequestBody Long postId, @RequestBody Long userId) {
+    public Post likePost(@RequestParam Long postId, @RequestParam Long userId) {
         return postService.likePost(postId, userId);
     }
 

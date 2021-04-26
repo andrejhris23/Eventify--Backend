@@ -15,7 +15,7 @@ public interface PostService {
 
     Post createPost(String name, String content, Long userId);
 
-    Post editPost(Post editedPost);
+    Post editPost(Long postId, String name, String content);
 
     Post likePost(Long postId, Long userId);
 

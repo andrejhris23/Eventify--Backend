@@ -71,10 +71,10 @@ public class User {
     private List<Comment> comments;
 
     private Role role;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "userCreator", fetch = FetchType.EAGER)
     private List<Post> createdPosts;
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "likesFromUsers" , fetch = FetchType.EAGER)
     private List<Post> likedPosts;
 
@@ -92,5 +92,7 @@ public class User {
 
 
     }
+
+
 }
 
