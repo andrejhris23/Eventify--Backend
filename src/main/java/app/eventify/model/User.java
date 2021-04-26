@@ -2,12 +2,14 @@ package app.eventify.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -52,6 +54,7 @@ public class User {
     @Column(name="image")
     private String image;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "host", fetch = FetchType.EAGER)
     private List<Event> createdEvents;
 
@@ -69,7 +72,7 @@ public class User {
     @OneToMany(mappedBy = "userCreator", fetch = FetchType.EAGER)
     private List<Post> createdPosts;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "likesFromUsers" , fetch = FetchType.EAGER)
     private List<Post> likedPosts;
 
     public User(String oauthId, String email, String displayName, String firstName, String lastName, String image) {
@@ -79,6 +82,12 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.image = image;
+        this.createdEvents = new ArrayList<>();
+        this.enrolledEvents = new ArrayList<>();
+        this.createdPosts = new ArrayList<>();
+        this.likedPosts = new ArrayList<>();
+
+
     }
 }
 

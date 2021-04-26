@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.csrf().disable();
         // This disables Spring CSRF
         http.authorizeRequests()
-                .mvcMatchers(HttpMethod.POST, "/event/**").permitAll()
+                .mvcMatchers(HttpMethod.DELETE, "/event/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

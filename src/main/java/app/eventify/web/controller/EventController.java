@@ -43,7 +43,7 @@ public class EventController {
     }
 
     @PostMapping("/joinEvent")
-    public String joinEvent(@Valid @RequestBody Long eventId,  Long userId ) {
+    public String joinEvent(@Valid @RequestParam Long eventId, @RequestParam Long userId ) {
         return eventService.joinEvent(eventId, userId);
     }
 

@@ -2,6 +2,9 @@ package app.eventify.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.minidev.json.annotate.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 
 import javax.persistence.*;
@@ -16,6 +19,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+
 
 public class Event {
     @Id
@@ -42,11 +46,15 @@ public class Event {
     @Column(name="capacity")
     private int capacity;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToMany(mappedBy = "enrolledEvents", fetch = FetchType.EAGER)
     private List<User> guests;
 
+
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private User host;
+
 
 
     public Event(String name, String description, String image, int price, int capacity, User host) {
@@ -57,5 +65,9 @@ public class Event {
         this.capacity = capacity;
         this.guests = new ArrayList<>();
         this.host = host;
+
+        this.guests = new ArrayList<>();
+
+
     }
 }

@@ -9,6 +9,7 @@ import app.eventify.repository.UserRepository;
 import app.eventify.service.EventService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class EventServiceImpl implements EventService {
@@ -32,6 +33,9 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void deleteById(Long id) {
+        Event event = eventRepository.findById(id).orElseThrow(() -> new InvalidEventIdException(id));
+        event.setGuests(new ArrayList<>());
+        eventRepository.save(event);
         eventRepository.deleteById(id);
     }
 
@@ -40,7 +44,11 @@ public class EventServiceImpl implements EventService {
         /* User host = new User(); */ // get the logged user from spring security
         User host = this.userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
         Event newEvent = new Event(name, description, image, price, capacity, host);
-        // host.setCreatedEvents().add(newEvent);
+
+       // host.getCreatedEvents().add(newEvent);
+
+//        host.setCreatedEvents();
+
 
         return eventRepository.save(newEvent);
     }

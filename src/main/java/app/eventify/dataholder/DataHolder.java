@@ -46,10 +46,11 @@ public class DataHolder {
     }
 
     public void generateData() {
-        // User testuser1 = new User("abcd", "testuser@gmail.com", "Testuser", "TestUserName", "TestUserovichLastName", "https://gravatar.com/avatar/1f82b0492a0a938288c2d5b70534a1fb?s=400&d=robohash&r=x" );
-        // User testuser2 = new User("qwerty", "qwerty@gmail.com", "qwertuser", "FirstQwerty", "QwertyovichLast", "https://www.nretnil.com/avatar/LawrenceEzekielAmos.png" );
-       //  initialUsers.add(testuser1);
-       //  initialUsers.add(testuser2);
+         User testuser1 = new User("abcd", "testuser@gmail.com", "Testuser", "TestUserName", "TestUserovichLastName", "https://gravatar.com/avatar/1f82b0492a0a938288c2d5b70534a1fb?s=400&d=robohash&r=x" );
+         User testuser2 = new User("qwerty", "qwerty@gmail.com", "qwertuser", "FirstQwerty", "QwertyovichLast", "https://www.nretnil.com/avatar/LawrenceEzekielAmos.png" );
+
+        initialUsers.add(testuser1);
+       initialUsers.add(testuser2);
 
       //  Event event1 = new Event("EventOne", "The first description for this majestic event", "https://i.pinimg.com/originals/12/54/09/1254093eda28964ac2ea4d158e7c0706.png", 35, 100, "abcd");
     }
