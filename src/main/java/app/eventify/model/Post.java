@@ -55,4 +55,17 @@ public class Post {
         this.likesFromUsers = new ArrayList<>();
         this.comments = new ArrayList<>();
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", date=" + date +
+                ", likesFromUsers=" + likesFromUsers +
+                ", userCreator=" + userCreator +
+                ", comments=" + comments +
+                '}';
+    }
 }

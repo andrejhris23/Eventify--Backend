@@ -67,7 +67,7 @@ public class PostServiceImpl implements PostService {
 
     // !!!! podole ima frka so if uslovot. Treba da gleda dali e lajknat postot, pa posle da go lajkne !!!
 
-        /* if ( likedPost.getLikesFromUsers().contains(currentUser) ){
+         if ( likedPost.getLikesFromUsers().contains(currentUser) ){
             throw new InvalidLikedPostException(postId);
         }
 
@@ -78,10 +78,10 @@ public class PostServiceImpl implements PostService {
 
 
 
-        } */
+        }
 
-        likedPost.getLikesFromUsers().add(currentUser);
-        return postRepository.save(likedPost);
+//        likedPost.getLikesFromUsers().add(currentUser);
+//        return postRepository.save(likedPost);
     }
 
     @Override
