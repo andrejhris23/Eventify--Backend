@@ -3,6 +3,8 @@ package app.eventify.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
@@ -58,6 +60,7 @@ public class User {
     @OneToMany(mappedBy = "host", fetch = FetchType.EAGER)
     private List<Event> createdEvents;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Event> enrolledEvents;
 

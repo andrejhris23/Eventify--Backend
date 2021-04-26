@@ -34,8 +34,8 @@ public class EventServiceImpl implements EventService {
     @Override
     public void deleteById(Long id) {
         Event event = eventRepository.findById(id).orElseThrow(() -> new InvalidEventIdException(id));
-        event.setGuests(new ArrayList<>());
-        eventRepository.save(event);
+//        event.setGuests(new ArrayList<>());
+//        eventRepository.save(event);
         eventRepository.deleteById(id);
     }
 

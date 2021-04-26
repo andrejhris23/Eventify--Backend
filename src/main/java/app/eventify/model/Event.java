@@ -1,5 +1,6 @@
 package app.eventify.model;
 
+import com.sun.istack.Nullable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
@@ -50,7 +51,7 @@ public class Event {
     @ManyToMany(mappedBy = "enrolledEvents", fetch = FetchType.EAGER)
     private List<User> guests;
 
-
+    @Nullable
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private User host;
