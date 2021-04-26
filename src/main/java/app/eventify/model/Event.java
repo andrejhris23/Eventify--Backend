@@ -1,5 +1,6 @@
 package app.eventify.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.Nullable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 
-
+@JsonIgnoreProperties ({"hibernateLazyInitializer", "handler", "host", "guests"})
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

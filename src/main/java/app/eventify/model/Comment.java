@@ -1,5 +1,6 @@
 package app.eventify.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,8 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
+@JsonIgnoreProperties ({"hibernateLazyInitializer", "handler", "user", "post"})
 public class Comment {
 
     @Id

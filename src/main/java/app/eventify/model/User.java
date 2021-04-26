@@ -1,5 +1,6 @@
 package app.eventify.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
@@ -20,7 +21,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 
-
+@JsonIgnoreProperties ({"hibernateLazyInitializer", "handler"})
 public class User {
 
     @Id
